@@ -4,6 +4,7 @@ extend type Query {
 
     "Return all publications"
     publications(
+        search: String @scope
         is_publicly_visible: Boolean @scope(name: "IsPubliclyVisible")
         is_accepting_submissions: Boolean @scope(name: "IsAcceptingSubmissions")
     ): [Publication!]!

@@ -21,6 +21,8 @@ type Query {
     "Return user accounts optionally based on a supplied search term"
     userSearch(term: String @search): [User!]! @paginate(defaultCount: 10)
 
+    users(search: String @scope): [User!]! @paginate(defaultCount: 10)
+
     "Validate details of a new user.  Returns true if supplied user fields would be valid."
     validateNewUser(user: ValidateNewUserInput): Boolean @returnTrue
 

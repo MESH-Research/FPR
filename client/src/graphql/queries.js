@@ -182,8 +182,8 @@ export const CURRENT_USER_SUBMISSIONS = gql`
 `
 
 export const GET_USERS = gql`
-  query GetUsers($page: Int) {
-    userSearch(page: $page) {
+  query GetUsers($page: Int, $search: String, $first: Int) {
+    users(page: $page, search: $search, first: $first) {
       paginatorInfo {
         ...paginationFields
       }
@@ -232,12 +232,14 @@ export const GET_PUBLICATIONS = gql`
   query GetPublications(
     $page: Int
     $first: Int
+    $search: String
     $is_publicly_visible: Boolean
     $is_accepting_submissions: Boolean
   ) {
     publications(
       page: $page
       first: $first
+      search: $search
       is_publicly_visible: $is_publicly_visible
       is_accepting_submissions: $is_accepting_submissions
     ) {

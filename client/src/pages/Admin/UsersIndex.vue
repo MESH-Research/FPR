@@ -1,54 +1,29 @@
 <template>
-    <h2 class="q-pl-lg">All Users</h2>
-    <div v-if="users.length">
-      <user-list-basic
-        ref="user_list_basic"
-        :users="users"
-        action="goToUserDetail"
-        @action-click="handleUserListBasicClick"
-      />
-
-      <q-pagination
-        v-model="currentPage"
-        data-cy="user_list_pagination"
-        class="q-pa-lg flex flex-center"
-        :max="lastPage"
-      />
-    </div>
+  <h2 class="q-pl-lg">All Users</h2>
+  <query-table
+    :query="GET_USERS"
+    t-prefix="admin.users"
+    :visible-columns
+    @row-click="handleUserListBasicClick"
+  />
 </template>
 
 <script setup>
-import { useQuery } from "@vue/apollo-composable"
-import UserListBasic from "src/components/molecules/UserListBasic.vue"
+import QueryTable from "src/components/tables/QueryTable.vue"
 import { GET_USERS } from "src/graphql/queries"
-import { computed, ref } from "vue"
+
+const visibleColumns = ["name", "username", "email"]
 import { useRouter } from "vue-router"
-const currentPage = ref(1)
 
-const { result } = useQuery(GET_USERS, { page: currentPage })
-
-const users = computed(() => {
-  return result.value?.userSearch.data ?? []
-})
-
-const lastPage = computed(() => {
-  return result.value?.userSearch.paginatorInfo.lastPage ?? 1
-})
-
-async function handleUserListBasicClick({ user, action }) {
-  switch (action) {
-    case "goToUserDetail":
-      goToUserDetail(user)
-      break
-  }
+async function handleUserListBasicClick(_, row) {
+  goToUserDetail(row.id)
 }
 
 const { push } = useRouter()
-async function goToUserDetail(user) {
-  const userId = user.id
+async function goToUserDetail(id) {
   push({
     name: "user_details",
-    params: { id: userId },
+    params: { id },
   })
 }
 </script>

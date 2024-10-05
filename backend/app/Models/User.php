@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -289,7 +291,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (User::where('username', $username)->exists()) {
             $unique = $username . '_'
                 . self::generateString(random_int(1, 2))
-                . str_replace(['0','1'], '2', (string)random_int(0, 50))
+                . str_replace(['0', '1'], '2', (string)random_int(0, 50))
                 . self::generateString(random_int(1, 2));
             $username = self::generateUniqueUsername($unique);
         }
@@ -324,5 +326,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getDisplayLabelAttribute(): string
     {
         return $this->attributes['name'] ?: $this->attributes['username'];
+    }
+
+    public function scopeSearch(Builder $query, mixed $search): Builder
+    {
+        if (!empty($search)) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('username', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        }
+        return $query;
     }
 }
