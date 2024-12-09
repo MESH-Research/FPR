@@ -14,6 +14,18 @@ const icons = flatten({
     revision_requested: "undo",
     archived: "inventory_2",
     deleted: "delete",
+    inline_comment: {
+      added: "chat_bubble",
+    },
+    inline_comment_reply: {
+      added: "chat_bubble",
+    },
+    overall_comment: {
+      added: "chat",
+    },
+    overall_comment_reply: {
+      added: "chat",
+    },
     invitation: {
       review_coordinator: {
         accepted: "emoji_people",

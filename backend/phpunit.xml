@@ -6,9 +6,11 @@
     </testsuite>
     <testsuite name="Feature">
       <directory suffix="Test.php">./tests/Feature</directory>
+      <directory suffix="Test.php">./tests/Feature/Notifications</directory>
     </testsuite>
     <testsuite name="Api">
       <directory suffix="Test.php">./tests/Api</directory>
+      <directory suffix="Test.php">./tests/Api/Notifications</directory>
     </testsuite>
   </testsuites>
   <coverage/>

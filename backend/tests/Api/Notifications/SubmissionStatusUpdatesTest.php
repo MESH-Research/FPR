@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Api;
+namespace Tests\Api\Notifications;
 
 use App\Models\Publication;
 use App\Models\Submission;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\ApiTestCase;
 
-class NotificationTest extends ApiTestCase
+class SubmissionStatusUpdatesTest extends ApiTestCase
 {
     use RefreshDatabase;
 
